@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Brand = {
     name: string;
     logo: string;
+    image: string;
     description: string;
     followersBefore: number;
     followersAfter: number;
@@ -17,6 +18,7 @@ const brands: Brand[] = [
     {
         name: 'Hug the plate',
         logo: '/logos/logo-hug.png',
+        image: '/2.PNG',
         description: 'Hug the plate unul din cele mai mari lanturi de restaurante din Sibiu',
         followersBefore: 3000,
         followersAfter: 12500,
@@ -27,6 +29,7 @@ const brands: Brand[] = [
     {
         name: 'Wei Ramen',
         logo: '/logos/logo-wei-ramen.jpeg',
+        image: '/3.PNG',
         description: 'Restaurant chinezesc premium cu meniu mananci cat poti',
         followersBefore: 800,
         followersAfter: 4600,
@@ -37,6 +40,7 @@ const brands: Brand[] = [
     {
         name: 'Smiles By ',
         logo: '/logos/logo-smiles.png',
+        image: '/4.PNG',
         description: 'Cabinet stomatologic profesionist',
         followersBefore: 800,
         followersAfter: 4600,
@@ -47,6 +51,7 @@ const brands: Brand[] = [
     {
         name: 'Yummy Yang',
         logo: '/logos/logo-yummyyang.svg',
+        image: '/5.PNG',
         description: 'Restaurant chinezesc premium cu meniu mananci cat poti',
         followersBefore: 800,
         followersAfter: 4600,
@@ -54,39 +59,10 @@ const brands: Brand[] = [
         campaignDuration: '2 luni',
         engagementRate: '+215%',
     },
-    // {
-    //     name: 'Stefana Peev',
-    //     logo: '/logos/logo-stefanapeev.svg',
-    //     description: 'Brand 2 ofera servicii de e-commerce de top la nivel european.',
-    //     followersBefore: 800,
-    //     followersAfter: 4600,
-    //     services: ['Content foto', 'Campanie UGC', 'PPC Meta Ads'],
-    //     campaignDuration: '2 luni',
-    //     engagementRate: '+215%',
-    // },
-    // {
-    //     name: 'We are one',
-    //     logo: '/logos/logo-weareone.png',
-    //     description: 'Brand 2 ofera servicii de e-commerce de top la nivel european.',
-    //     followersBefore: 800,
-    //     followersAfter: 4600,
-    //     services: ['Content foto', 'Campanie UGC', 'PPC Meta Ads'],
-    //     campaignDuration: '2 luni',
-    //     engagementRate: '+215%',
-    // },
-    // {
-    //     name: 'LaFiesta',
-    //     logo: '/logos/logo-la-fiesta.svg',
-    //     description: 'Cele mai tari petreceri din Sibiu pentru tineret',
-    //     followersBefore: 800,
-    //     followersAfter: 4600,
-    //     services: ['Content foto', 'Campanie UGC', 'PPC Meta Ads'],
-    //     campaignDuration: '2 luni',
-    //     engagementRate: '+215%',
-    // },
     {
         name: 'TransAgape',
         logo: '/logos/logo-trans-agape-maro.png',
+        image: '/6.PNG',
         description: 'Cel mai cunoscut lant de pain din Sibiu',
         followersBefore: 800,
         followersAfter: 4600,
@@ -97,6 +73,7 @@ const brands: Brand[] = [
     {
         name: 'CrediResidence',
         logo: '/logos/logo-pureboost.svg',
+        image: '/7.PNG',
         description: 'E si el pe aici',
         followersBefore: 800,
         followersAfter: 4600,
@@ -107,6 +84,7 @@ const brands: Brand[] = [
     {
         name: 'MakeupNUSTIUCE',
         logo: '/logos/logo-vitalstore.svg',
+        image: '/8.PNG',
         description: 'La fel si asta',
         followersBefore: 800,
         followersAfter: 4600,
@@ -117,10 +95,45 @@ const brands: Brand[] = [
 ];
 
 export default function BrandsSection() {
-    const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+    const [flippedIndexes, setFlippedIndexes] = useState<number[]>([]);
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            cardRefs.current.forEach((ref, index) => {
+                if (ref) {
+                    const rect = ref.getBoundingClientRect();
+                    const top = rect.top;
+                    const height = rect.height;
+                    const viewportHeight = window.innerHeight;
+
+                    const cardMiddle = top + height / 2;
+                    const percentageInView = cardMiddle / viewportHeight;
+
+                    // exemplu: când cardul e cam pe 70% din viewport
+                    if (percentageInView >= 0.2 && percentageInView <= 0.65) {
+                        // flip pe spate
+                        setFlippedIndexes((prev) => [...new Set([...prev, index])]);
+                    } else {
+                        // revine la față
+                        setFlippedIndexes((prev) => prev.filter((i) => i !== index));
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll(); // inițial
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const toggleCard = (index: number) => {
-        setFlippedIndex(flippedIndex === index ? null : index);
+        setFlippedIndexes((prev) =>
+            prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+        );
     };
 
     return (
@@ -132,52 +145,37 @@ export default function BrandsSection() {
                     {brands.map((brand, index) => (
                         <div
                             key={index}
+                            ref={(el) => (cardRefs.current[index] = el)}
                             className="perspective transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
                             onClick={() => toggleCard(index)}
                         >
                             <div
-                                className={`relative w-full h-64 transition-transform duration-700 transform-style preserve-3d ${flippedIndex === index ? 'rotate-y-180' : ''}`}>
+                                className={`relative w-full h-64 transition-transform duration-700 transform-style preserve-3d ${
+                                    flippedIndexes.includes(index) ? 'rotate-y-180' : ''
+                                }`}
+                            >
                                 {/* Fata */}
-                                <div
-                                    className="absolute w-full h-full bg-white rounded-lg shadow-lg flex items-center justify-center backface-hidden">
-                                    <img src={brand.logo} alt={brand.name} className="h-20 max-w-[70%]"/>
+                                <div className="absolute w-full h-full bg-white rounded-lg shadow-lg flex items-center justify-center backface-hidden">
+                                    <img src={brand.logo} alt={brand.name} className="h-20 max-w-[70%]" />
                                     <div className="absolute bottom-3 right-3 text-xs text-gray-400 italic">Apasa</div>
                                 </div>
 
                                 {/* Verso */}
-                                <div
-                                    className="absolute w-full h-full bg-emerald-100 rounded-lg shadow-lg p-6 text-emerald-800 transform rotate-y-180 backface-hidden overflow-hidden flex flex-col justify-between"
-                                >
-                                    <div>
-                                        <h3 className="text-xl font-semibold mb-1">{brand.name}</h3>
-                                        <p className="text-xs text-gray-700 mb-3">{brand.description}</p>
-
-                                        <div className="text-sm text-left space-y-1">
-                                            <p><span
-                                                className="font-semibold">Followers:</span> {brand.followersBefore.toLocaleString()} ➜ {brand.followersAfter.toLocaleString()}
-                                            </p>
-                                            <p><span
-                                                className="font-semibold">Servicii:</span> {brand.services.join(', ')}
-                                            </p>
-                                            <p><span className="font-semibold">Campanie:</span> {brand.campaignDuration}
-                                            </p>
-                                            <p><span className="font-semibold">Engagement:</span> {brand.engagementRate}
-                                            </p>
-                                        </div>
-                                    </div>
+                                <div className="absolute w-full h-full bg-emerald-100 rounded-lg shadow-lg transform rotate-y-180 backface-hidden overflow-hidden flex flex-col justify-between">
+                                    <div
+                                        className="w-full h-full bg-top bg-cover"
+                                        style={{ backgroundImage: `url(${brand.image})` }}
+                                    />
                                 </div>
-
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Tailwind custom CSS */}
             <style jsx>{`
                 .perspective {
                     perspective: 1000px;
-                    cursor: pointer;
                 }
 
                 .transform-style {
@@ -191,8 +189,7 @@ export default function BrandsSection() {
                 .backface-hidden {
                     backface-visibility: hidden;
                 }
-            `}
-            </style>
+            `}</style>
         </section>
     );
 }

@@ -86,7 +86,7 @@ export default function ContactForm() {
                     <div className="hidden md:block h-full w-px bg-black"/>
 
                     {/* Dreapta - Formular */}
-                    <div className="bg-[#FDF8F3] p-8 shadow-lg rounded-xl">
+                    <div className="bg-white p-8 shadow-lg rounded-xl">
                         {isSubmitted ? (
                             <p className="text-green-600 text-center font-semibold">Mesajul a fost trimis cu succes!</p>
                         ) : (
