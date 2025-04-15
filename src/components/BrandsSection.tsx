@@ -144,8 +144,9 @@ export default function BrandsSection() {
                     {brands.map((brand, index) => (
                         <div
                             key={index}
-                            ref={(el) => (cardRefs.current[index] = el)}
-                            className="perspective transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
+                            ref={(el: HTMLDivElement | null) => {
+                                cardRefs.current[index] = el;
+                            }}                            className="perspective transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
                             onClick={() => toggleCard(index)}
                         >
                             <div
