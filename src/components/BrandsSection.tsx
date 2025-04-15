@@ -110,7 +110,6 @@ export default function BrandsSection() {
                     const cardMiddle = top + height / 2;
                     const percentageInView = cardMiddle / viewportHeight;
 
-                    // exemplu: când cardul e cam pe 70% din viewport
                     if (percentageInView >= 0.2 && percentageInView <= 0.65) {
                         // flip pe spate
                         setFlippedIndexes((prev) => [...new Set([...prev, index])]);
