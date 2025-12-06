@@ -1,8 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
-import { useEffect, useState } from 'react';
 
 interface CounterProps {
     from: number;
@@ -158,4 +157,3 @@ export default function StatsSection() {
         </section>
     );
 }
-

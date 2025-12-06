@@ -19,7 +19,6 @@ type Result = {
     link: string;
 };
 
-// Consistent number formatter that doesn't cause hydration issues
 const formatNumber = (num: number): string => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 };
@@ -87,79 +86,73 @@ const results: Result[] = [
     },
 ];
 
-// Reusable card component
 function ResultCard({ result, index, isInView }: { result: Result; index: number; isInView: boolean }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group"
+            transition={{ duration: 0.4, delay: index * 0.1 }}
         >
-            <div className="h-full bg-gradient-to-b from-white/[0.08] to-white/[0.02] rounded-3xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-[#24c6dc]/10">
+            <div className="h-full bg-gradient-to-b from-white/[0.08] to-white/[0.02] rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden">
                 {/* Image */}
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-44 md:h-56 overflow-hidden">
                     <Image
                         src={result.image}
                         alt={result.name}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f0c29] via-[#0f0c29]/50 to-transparent" />
 
                     {/* Growth badge */}
-                    <motion.div
-                        initial={{ scale: 0 }}
-                        animate={isInView ? { scale: 1 } : {}}
-                        transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
-                        className="absolute top-4 right-4 px-4 py-2 rounded-full bg-gradient-to-r from-[#24c6dc] to-[#1db9cd] text-[#0f0c29] text-sm font-bold shadow-lg"
-                    >
+                    <div className="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#24c6dc] to-[#1db9cd] text-[#0f0c29] text-xs md:text-sm font-bold">
                         {result.growth}
-                    </motion.div>
+                    </div>
 
                     {/* Name overlay */}
-                    <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-2xl font-bold text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
+                    <div className="absolute bottom-3 left-3 right-3">
+                        <h3 className="text-xl md:text-2xl font-bold text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
                             {result.name}
                         </h3>
                     </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                    <p className="text-white/60 text-sm mb-6">
+                <div className="p-4 md:p-6">
+                    <p className="text-white/60 text-xs md:text-sm mb-4 md:mb-6">
                         {result.description}
                     </p>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="bg-white/5 rounded-xl p-4">
-                            <div className="flex items-center gap-2 text-[#24c6dc] mb-1">
-                                <FaUsers className="w-4 h-4" />
-                                <span className="text-xs font-medium">Followers</span>
+                    <div className="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-6">
+                        <div className="bg-white/5 rounded-lg md:rounded-xl p-3 md:p-4">
+                            <div className="flex items-center gap-1.5 md:gap-2 text-[#24c6dc] mb-0.5 md:mb-1">
+                                <FaUsers className="w-3 h-3 md:w-4 md:h-4" />
+                                <span className="text-[10px] md:text-xs font-medium">Followers</span>
                             </div>
-                            <div className="text-white font-semibold">
+                            <div className="text-white font-semibold text-xs md:text-base">
                                 {formatNumber(result.followersBefore)} → {formatNumber(result.followersAfter)}
                             </div>
                         </div>
-                        <div className="bg-white/5 rounded-xl p-4">
-                            <div className="flex items-center gap-2 text-[#ff6b6b] mb-1">
-                                <FaChartLine className="w-4 h-4" />
-                                <span className="text-xs font-medium">Durată</span>
+                        <div className="bg-white/5 rounded-lg md:rounded-xl p-3 md:p-4">
+                            <div className="flex items-center gap-1.5 md:gap-2 text-[#ff6b6b] mb-0.5 md:mb-1">
+                                <FaChartLine className="w-3 h-3 md:w-4 md:h-4" />
+                                <span className="text-[10px] md:text-xs font-medium">Durată</span>
                             </div>
-                            <div className="text-white font-semibold">
+                            <div className="text-white font-semibold text-xs md:text-base">
                                 {result.campaignDuration}
                             </div>
                         </div>
                     </div>
 
                     {/* Services tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-1.5 md:gap-2 mb-4 md:mb-6">
                         {result.services.map((service, i) => (
                             <span
                                 key={i}
-                                className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-white/70"
+                                className="px-2 md:px-3 py-1 md:py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-xs text-white/70"
                             >
                                 {service}
                             </span>
@@ -171,11 +164,10 @@ function ResultCard({ result, index, isInView }: { result: Result; index: number
                         href={result.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-[#24c6dc] hover:text-[#0f0c29] hover:border-[#24c6dc] transition-all duration-300 group/link font-medium"
+                        className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-medium active:scale-[0.98] transition-transform"
                     >
                         <FaInstagram className="w-4 h-4" />
                         <span>Vezi profilul</span>
-                        <FaArrowUp className="w-3 h-3 rotate-45 opacity-0 group-hover/link:opacity-100 transition-opacity" />
                     </Link>
                 </div>
             </div>
@@ -185,37 +177,32 @@ function ResultCard({ result, index, isInView }: { result: Result; index: number
 
 export default function ResultsSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
-    const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+    const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
 
     return (
-        <section id="results" ref={sectionRef} className="py-24 px-6 relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-[#24c6dc]/5 to-[#ff6b6b]/5 blur-3xl" />
-            </div>
-
+        <section id="results" ref={sectionRef} className="py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
             <div className="max-w-7xl mx-auto relative">
                 {/* Section header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    transition={{ duration: 0.5 }}
+                    className="text-center mb-10 md:mb-16"
                 >
                     <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[#ffd93d] text-sm font-medium mb-4">
                         Rezultate
                     </span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ fontFamily: 'Syne, sans-serif' }}>
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6" style={{ fontFamily: 'Syne, sans-serif' }}>
                         <span className="text-white">Rezultate </span>
                         <span className="gradient-text">reale</span>
                     </h2>
-                    <p className="text-lg text-white/60 max-w-2xl mx-auto">
-                        Fiecare proiect este o poveste de succes. Iată câteva dintre transformările realizate de echipa noastră.
+                    <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto px-4">
+                        Fiecare proiect este o poveste de succes.
                     </p>
                 </motion.div>
 
-                {/* All results in one grid - flows naturally left to right */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* All results in one grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                     {results.map((result, index) => (
                         <ResultCard key={result.id} result={result} index={index} isInView={isInView} />
                     ))}
