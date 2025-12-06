@@ -1,6 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+:root {
+    /* Primary colors - Deep Navy to Electric Purple gradient */
+    --color-primary: #0f0c29;
+    --color-secondary: #302b63;
+    --color-accent: #24c6dc;
+    --color-accent-alt: #ff6b6b;
+    --color-highlight: #ffd93d;
+    
+    /* Text colors */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --text-muted: rgba(255, 255, 255, 0.6);
+    
+    /* Glass effect */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+}
+
 ::selection {
-    background-color: #10b981; /* emerald-500 */
-    color: white;
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, #1a1a2e 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Animated background particles */
+.bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-particles::before,
+.bg-particles::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    animation: float 20s infinite ease-in-out;
+}
+
+.bg-particles::before {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(36, 198, 220, 0.15) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+}
+
+.bg-particles::after {
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+    bottom: -300px;
+    left: -300px;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(30px, -30px) scale(1.05);
+    }
+    50% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+    75% {
+        transform: translate(-30px, -20px) scale(1.02);
+    }
+}
+
+/* Glass morphism card */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px var(--glass-shadow);
+}
+
+/* Gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-alt) 50%, var(--color-highlight) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-text-alt {
+    background: linear-gradient(90deg, #fff 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Animated border gradient */
+.gradient-border {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-alt), var(--color-highlight), var(--color-accent));
+    background-size: 300% 300%;
+    animation: borderGradient 4s ease infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+@keyframes borderGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Glow effect */
+.glow {
+    box-shadow: 0 0 40px rgba(36, 198, 220, 0.3), 0 0 80px rgba(36, 198, 220, 0.1);
+}
+
+.glow-accent {
+    box-shadow: 0 0 40px rgba(255, 107, 107, 0.3), 0 0 80px rgba(255, 107, 107, 0.1);
+}
+
+/* Button styles */
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-accent) 0%, #1db9cd 100%);
+    color: var(--color-primary);
+    font-weight: 600;
+    padding: 1rem 2.5rem;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(36, 198, 220, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    font-weight: 600;
+    padding: 1rem 2.5rem;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--color-accent);
+    color: var(--color-primary);
+    transform: translateY(-3px);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--color-accent), var(--color-accent-alt));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+}
+
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Noise overlay for texture */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Magnetic hover effect container */
+.magnetic {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Marquee animation */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
+
+/* Pulse ring animation */
+@keyframes pulseRing {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.pulse-ring {
+    animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Floating animation */
+@keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.animate-floating {
+    animation: floating 6s ease-in-out infinite;
+}
+
+/* Text reveal animation */
+@keyframes textReveal {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+/* Staggered fade in */
+.stagger-fade > * {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.stagger-fade > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-fade > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-fade > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-fade > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-fade > *:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Input focus styles */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--color-accent) !important;
+    box-shadow: 0 0 0 3px rgba(36, 198, 220, 0.2);
+}
+
+/* 3D card flip */
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+/* perspective */
+.perspective-1000 {
+    perspective: 1000px;
 }
