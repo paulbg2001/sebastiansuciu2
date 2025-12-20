@@ -20,14 +20,13 @@ export default function Footer() {
     const socialLinks = [
         { icon: <FaInstagram />, href: 'https://www.instagram.com/sebastiansuciu21/', label: 'Instagram' },
         { icon: <FaTiktok />, href: 'https://www.tiktok.com/@sebisuciu21', label: 'TikTok' },
-        { icon: <FaLinkedin />, href: 'https://linkedin.com', label: 'LinkedIn' },
     ];
 
     return (
         <footer className="relative pt-24 pb-8 px-6 overflow-hidden">
             {/* Background gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a15] to-transparent pointer-events-none" />
-            
+
             {/* Top decorative line */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
@@ -46,7 +45,7 @@ export default function Footer() {
                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#24c6dc] to-[#ff6b6b] flex items-center justify-center">
                                     <span className="text-white font-bold text-lg" style={{ fontFamily: 'Syne, sans-serif' }}>SS</span>
                                 </div>
-                                <span 
+                                <span
                                     className="text-xl font-bold text-white"
                                     style={{ fontFamily: 'Syne, sans-serif' }}
                                 >
@@ -56,7 +55,7 @@ export default function Footer() {
                             <p className="text-white/50 text-sm leading-relaxed mb-6">
                                 Agenție de marketing digital axată pe rezultate reale și creștere organică prin conținut relevant și autentic.
                             </p>
-                            
+
                             {/* Social links */}
                             <div className="flex gap-3">
                                 {socialLinks.map((social, index) => (
@@ -137,9 +136,7 @@ export default function Footer() {
                         viewport={{ once: true }}
                         className="text-white/40 text-sm flex items-center gap-1"
                     >
-                        © {new Date().getFullYear()} ssmediahub. Făcut cu 
-                        <FaHeart className="text-[#ff6b6b] mx-1" /> 
-                        în România
+                        © {new Date().getFullYear()} ssmediahub
                     </motion.p>
 
                     {/* Back to top button */}

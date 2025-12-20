@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { FaUsers, FaChartLine, FaInstagram, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaInstagram, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Link from 'next/link';
 
 type Result = {
@@ -40,7 +40,7 @@ const results: Result[] = [
         id: 2,
         name: 'Wei Ramen',
         description: 'Restaurant premium all-you-can-eat cu o prezență nouă în online.',
-        image: '/wei-ramen.jpg',
+        image: '/wei-ramen-insta-post.jpg',
         followersBefore: 800,
         followersAfter: 4600,
         growth: '+215%',
@@ -120,18 +120,7 @@ const results: Result[] = [
         services: ['Content video', 'Meta Ads', 'Reels'],
         link: 'https://www.instagram.com/',
     },
-    {
-        id: 9,
-        name: 'Credi Residence',
-        description: 'Soluții imobiliare și consultanță profesională.',
-        image: null,
-        followersBefore: 400,
-        followersAfter: 1800,
-        growth: '+350%',
-        campaignDuration: '2 luni',
-        services: ['Foto branding', 'Content video', 'Meta Ads'],
-        link: 'https://www.instagram.com/',
-    },
+
     {
         id: 10,
         name: 'Yummy Yang',
@@ -144,18 +133,7 @@ const results: Result[] = [
         services: ['Foto branding', 'Testimonial video', 'Reels'],
         link: 'https://www.instagram.com/yummyyangcity/',
     },
-    {
-        id: 11,
-        name: 'Hug the Plate',
-        description: 'Unul dintre cele mai mari lanțuri de restaurante din Sibiu.',
-        image: '/hug-the-plate.jpg',
-        followersBefore: 3000,
-        followersAfter: 12500,
-        growth: '+320%',
-        campaignDuration: '3 luni',
-        services: ['Instagram Reels', 'TikTok', 'Video editing'],
-        link: 'https://www.instagram.com/hugtheplate/',
-    },
+
 ];
 
 function ResultCard({ result, index, isInView }: { result: Result; index: number; isInView: boolean }) {
@@ -181,7 +159,7 @@ function ResultCard({ result, index, isInView }: { result: Result; index: number
                         />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-[#24c6dc]/20 via-[#302b63]/30 to-[#ff6b6b]/20 flex items-center justify-center">
-                            <span 
+                            <span
                                 className="text-3xl md:text-4xl font-bold gradient-text text-center px-4"
                                 style={{ fontFamily: 'Syne, sans-serif' }}
                             >
@@ -210,27 +188,7 @@ function ResultCard({ result, index, isInView }: { result: Result; index: number
                         {result.description}
                     </p>
 
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-6">
-                        <div className="bg-white/5 rounded-lg md:rounded-xl p-3 md:p-4">
-                            <div className="flex items-center gap-1.5 md:gap-2 text-[#24c6dc] mb-0.5 md:mb-1">
-                                <FaUsers className="w-3 h-3 md:w-4 md:h-4" />
-                                <span className="text-[10px] md:text-xs font-medium">Followers</span>
-                            </div>
-                            <div className="text-white font-semibold text-xs md:text-base">
-                                {formatNumber(result.followersBefore)} → {formatNumber(result.followersAfter)}
-                            </div>
-                        </div>
-                        <div className="bg-white/5 rounded-lg md:rounded-xl p-3 md:p-4">
-                            <div className="flex items-center gap-1.5 md:gap-2 text-[#ff6b6b] mb-0.5 md:mb-1">
-                                <FaChartLine className="w-3 h-3 md:w-4 md:h-4" />
-                                <span className="text-[10px] md:text-xs font-medium">Durată</span>
-                            </div>
-                            <div className="text-white font-semibold text-xs md:text-base">
-                                {result.campaignDuration}
-                            </div>
-                        </div>
-                    </div>
+
 
                     {/* Services tags */}
                     <div className="flex flex-wrap gap-1.5 md:gap-2 mb-4 md:mb-6">

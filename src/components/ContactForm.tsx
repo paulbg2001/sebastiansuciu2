@@ -16,7 +16,7 @@ interface FormData {
 export default function ContactForm() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
-    
+
     const [formData, setFormData] = useState<FormData>({
         name: "", email: "", phone: "", message: "", selectedService: ""
     });
@@ -24,11 +24,12 @@ export default function ContactForm() {
     const [activeStep, setActiveStep] = useState<number>(0);
 
     const dataServices = [
-        { id: 1, name: 'Pachet Diamond', emoji: '💎' },
-        { id: 2, name: 'Pachet Gold', emoji: '🏆' },
-        { id: 3, name: 'Pachet Silver', emoji: '🥈' },
-        { id: 4, name: 'Pachet Bronze', emoji: '🥉' },
-        { id: 5, name: 'Consultanță gratuită', emoji: '💬' },
+        { id: 1, name: 'Social Media Management', emoji: '📱' },
+        { id: 2, name: 'Video Production (TikTok/Reels)', emoji: '🎬' },
+        { id: 3, name: 'Paid Ads (Meta/Google)', emoji: '📈' },
+        { id: 4, name: 'Web Development', emoji: '💻' },
+        { id: 5, name: 'Strategie & Consultanță', emoji: '🧠' },
+        { id: 6, name: 'Altceva / Personalizat', emoji: '✨' },
     ];
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -43,7 +44,7 @@ export default function ContactForm() {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!formData.name || !formData.email || !formData.message) return;
-        
+
         console.log("Form data:", formData);
         setIsSubmitted(true);
 
@@ -77,7 +78,7 @@ export default function ContactForm() {
                         <span className="text-white font-medium text-sm md:text-base">Pregătit să creștem împreună?</span>
                         <HiSparkles className="text-[#ffd93d]" />
                     </div>
-                    
+
                     <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
                         <span className="text-white">Scrie-mi un </span>
                         <span className="gradient-text">mesaj</span>
@@ -114,13 +115,12 @@ export default function ContactForm() {
                                 <button
                                     key={index}
                                     onClick={() => setActiveStep(index)}
-                                    className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm transition-all ${
-                                        activeStep === index
-                                            ? 'bg-gradient-to-r from-[#24c6dc] to-[#1db9cd] text-[#0f0c29]'
-                                            : activeStep > index
+                                    className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm transition-all ${activeStep === index
+                                        ? 'bg-gradient-to-r from-[#24c6dc] to-[#1db9cd] text-[#0f0c29]'
+                                        : activeStep > index
                                             ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                                             : 'bg-white/5 text-white/50 border border-white/10'
-                                    }`}
+                                        }`}
                                 >
                                     <span className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-current/20 flex items-center justify-center text-[10px] md:text-sm font-bold">
                                         {activeStep > index ? '✓' : index + 1}
@@ -144,11 +144,10 @@ export default function ContactForm() {
                                                     key={service.id}
                                                     type="button"
                                                     onClick={() => handleServiceSelect(service.name)}
-                                                    className={`p-3 md:p-4 rounded-xl md:rounded-2xl border text-left transition-all active:scale-[0.98] ${
-                                                        formData.selectedService === service.name
-                                                            ? 'bg-[#24c6dc]/20 border-[#24c6dc]'
-                                                            : 'bg-white/5 border-white/10'
-                                                    }`}
+                                                    className={`p-3 md:p-4 rounded-xl md:rounded-2xl border text-left transition-all active:scale-[0.98] ${formData.selectedService === service.name
+                                                        ? 'bg-[#24c6dc]/20 border-[#24c6dc]'
+                                                        : 'bg-white/5 border-white/10'
+                                                        }`}
                                                 >
                                                     <span className="text-xl md:text-2xl mb-1 md:mb-2 block">{service.emoji}</span>
                                                     <span className="text-white font-medium text-sm md:text-base">{service.name}</span>
@@ -236,11 +235,10 @@ export default function ContactForm() {
                                     <button
                                         type="button"
                                         onClick={prevStep}
-                                        className={`px-4 md:px-6 py-2.5 md:py-3 rounded-xl font-medium text-sm md:text-base transition-all ${
-                                            activeStep === 0
-                                                ? 'opacity-0 pointer-events-none'
-                                                : 'bg-white/5 text-white'
-                                        }`}
+                                        className={`px-4 md:px-6 py-2.5 md:py-3 rounded-xl font-medium text-sm md:text-base transition-all ${activeStep === 0
+                                            ? 'opacity-0 pointer-events-none'
+                                            : 'bg-white/5 text-white'
+                                            }`}
                                     >
                                         ← Înapoi
                                     </button>
@@ -276,7 +274,7 @@ export default function ContactForm() {
                             <p className="text-white/50 mb-3 md:mb-4 text-sm md:text-base">Sau contactează-mă direct:</p>
                             <div className="flex justify-center gap-2 md:gap-4 flex-wrap">
                                 <a
-                                    href="https://wa.me/+40752413396"
+                                    href="https://wa.me/+40754502408"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-full bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] text-sm md:text-base active:scale-95 transition-transform"

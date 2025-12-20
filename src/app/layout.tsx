@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { FaWhatsapp } from "react-icons/fa";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -69,7 +70,7 @@ export default function RootLayout({
                 {/* Background effects */}
                 <div className="bg-particles" aria-hidden="true" />
                 <div className="noise-overlay" aria-hidden="true" />
-                
+
                 {/* Main content */}
                 <div className="relative z-10">
                     <Navbar />
@@ -78,7 +79,7 @@ export default function RootLayout({
                     </main>
                     <Footer />
                 </div>
-                
+
                 {/* Structured Data for SEO */}
                 <script
                     type="application/ld+json"
@@ -111,6 +112,19 @@ export default function RootLayout({
                         }),
                     }}
                 />
+                <a
+                    href="https://wa.me/40754502408?text=Salut!%20Vreau%20să%20discutăm%20despre%20o%20colaborare."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:bg-[#20bd5a] hover:scale-110 transition-all duration-300 animate-bounce-slow group"
+                    aria-label="Contactează-ne pe WhatsApp"
+                >
+                    <FaWhatsapp className="w-8 h-8" />
+                    <span className="absolute right-full mr-3 bg-white text-black px-3 py-1 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hidden md:block shadow-md">
+                        Contactează-ne
+                    </span>
+                    <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 group-hover:opacity-0" />
+                </a>
             </body>
         </html>
     );

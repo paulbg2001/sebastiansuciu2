@@ -33,7 +33,7 @@ const brands: Brand[] = [
     },
     {
         name: 'Versailles Sibiu ',
-        logo: null,
+        logo: '/logos/versailles-logo-black.png',
         image: null,
         description: 'Sală de evenimente și nunți',
     },
@@ -51,7 +51,7 @@ const brands: Brand[] = [
     },
     {
         name: 'Tokyo Ramen',
-        logo: null,
+        logo: '/logos/tokyo-ramen-logo.png',
         image: null,
         description: 'Restaurant japonez autentic în Timișoara',
     },
@@ -61,24 +61,14 @@ const brands: Brand[] = [
         image: null,
         description: 'Dezvoltator imobiliar de încredere',
     },
-    {
-        name: 'Credi Residence',
-        logo: null,
-        image: null,
-        description: 'Soluții imobiliare și consultanță',
-    },
+
     {
         name: 'Yummy Yang',
         logo: '/logos/logo-yummyyang.svg',
         image: '/5.PNG',
         description: 'Restaurant chinezesc premium',
     },
-    {
-        name: 'Hug the Plate',
-        logo: '/logos/logo-hug.png',
-        image: null,
-        description: 'Unul din cele mai mari lanțuri de restaurante din Sibiu',
-    },
+
 ];
 
 function BrandCard({ brand, index, isInView }: { brand: Brand; index: number; isInView: boolean }) {
@@ -101,14 +91,13 @@ function BrandCard({ brand, index, isInView }: { brand: Brand; index: number; is
             style={{ perspective: '1000px' }}
             onClick={handleClick}
         >
-            <div 
-                className={`relative h-[320px] md:h-[380px] transition-transform duration-500 ${
-                    hasFlipEffect 
-                        ? isFlipped 
-                            ? '[transform:rotateY(180deg)]' 
-                            : 'md:group-hover:[transform:rotateY(180deg)]'
-                        : ''
-                }`}
+            <div
+                className={`relative h-[320px] md:h-[380px] transition-transform duration-500 ${hasFlipEffect
+                    ? isFlipped
+                        ? '[transform:rotateY(180deg)]'
+                        : 'md:group-hover:[transform:rotateY(180deg)]'
+                    : ''
+                    }`}
                 style={{ transformStyle: 'preserve-3d' }}
             >
                 {/* Front - Logo or Name */}
@@ -129,7 +118,7 @@ function BrandCard({ brand, index, isInView }: { brand: Brand; index: number; is
                         ) : (
                             // Show name as styled title
                             <div className="mb-4 md:mb-6 text-center">
-                                <h3 
+                                <h3
                                     className="text-3xl md:text-4xl font-bold gradient-text"
                                     style={{ fontFamily: 'Syne, sans-serif' }}
                                 >
@@ -137,17 +126,17 @@ function BrandCard({ brand, index, isInView }: { brand: Brand; index: number; is
                                 </h3>
                             </div>
                         )}
-                        
+
                         {hasLogo && (
                             <h3 className="text-lg md:text-xl font-bold text-white text-center mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 {brand.name}
                             </h3>
                         )}
-                        
+
                         <p className="text-sm text-white/50 text-center px-2">
                             {brand.description}
                         </p>
-                        
+
                         {hasFlipEffect && (
                             <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6 flex items-center gap-2 text-xs md:text-sm text-[#24c6dc]">
                                 <span className="md:hidden">Apasă</span>
