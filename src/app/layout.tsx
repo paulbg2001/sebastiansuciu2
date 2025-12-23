@@ -50,6 +50,18 @@ export const metadata: Metadata = {
         canonical: "https://ssmediahub.ro",
     },
     category: "Marketing",
+    icons: {
+        icon: "/ssmediahub-favicon.ico",
+        shortcut: "/ssmediahub-favicon.ico",
+        apple: "/ssmediahub-favicon.ico",
+    },
+    formatDetection: {
+        telephone: false,
+    },
+};
+
+export const viewport = {
+    themeColor: "#0f0c29",
 };
 
 export default function RootLayout({
@@ -59,13 +71,6 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ro">
-            <head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <meta name="theme-color" content="#0f0c29" />
-                <meta name="format-detection" content="telephone=no" />
-                <link rel="icon" href="/favicon.ico" sizes="any" />
-            </head>
             <body className="antialiased">
                 {/* Background effects */}
                 <div className="bg-particles" aria-hidden="true" />
