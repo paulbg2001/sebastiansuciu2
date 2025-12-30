@@ -161,14 +161,14 @@ export default function Footer() {
                     className="mt-8 pt-6 border-t border-white/5 text-center"
                 >
                     <a
-                        href="https://kipama.vercel.app/"
+                        href="https://kipalabs.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 text-sm transition-colors group"
                     >
                         <FaCode className="w-4 h-4" />
                         <span>Design & Development by</span>
-                        <span className="font-semibold text-[#24c6dc] group-hover:text-[#ff6b6b] transition-colors">Kipama</span>
+                        <span className="font-semibold text-[#24c6dc] group-hover:text-[#ff6b6b] transition-colors">Kipa Labs</span>
                     </a>
                 </motion.div>
             </div>
