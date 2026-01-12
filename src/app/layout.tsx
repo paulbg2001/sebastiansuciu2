@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { FaWhatsapp } from "react-icons/fa";
 import React from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
     title: "ssmediahub | Agenție de Marketing Digital în România",
@@ -130,6 +131,7 @@ export default function RootLayout({
                     </span>
                     <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 group-hover:opacity-0" />
                 </a>
+                <Analytics />
             </body>
         </html>
     );
